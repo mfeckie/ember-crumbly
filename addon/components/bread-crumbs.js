@@ -61,7 +61,6 @@ export default Component.extend({
 
   _guessRoutePath(routeNames, name, index) {
     const routes = routeNames.slice(0, index + 1);
-
     if (routes.length === 1) {
       return `${name}.index`;
     }
@@ -76,9 +75,11 @@ export default Component.extend({
   _lookupRoute(routeName) {
     const container = get(this, 'container');
     const route = container.lookup(`route:${routeName}`);
-    assert(`[ember-crumbly] \`route:${routeName}\` was not found`, route);
-
-    return route;
+    if (route) {
+      return route;
+    } else {
+      return Ember.Object.create();
+    }
   },
 
   _lookupBreadCrumb(routeNames, filteredRouteNames) {

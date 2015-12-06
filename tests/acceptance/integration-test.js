@@ -68,6 +68,15 @@ test('routes can set dynamic breadcrumb props', function(assert) {
   });
 });
 
+test('Should not choke when a route is not explicitly defined', function(assert) {
+  visit('/school/123/teachers/index');
+  andThen(() => {
+    const routeHierarchy = componentInstance.get('routeHierarchy');
+    assert.equal(currentRouteName(), 'school.teachers.index');
+    assert.equal(routeHierarchy.length, 2, 'returns correct number of routes');
+  });
+});
+
 test('routes that are not linkable do not generate an <a> tag', function(assert) {
   assert.expect(3);
   visit('/foo/bar/baz/');

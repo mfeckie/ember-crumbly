@@ -6,6 +6,7 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+
   this.route('foo', function() {
     this.route('bar', function() {
       this.route('baz', function() {
@@ -27,6 +28,12 @@ Router.map(function() {
 
   this.route('dessert', function() {
     this.route('cookie');
+  });
+
+  this.route('school', function() {
+    this.route('teachers', { path: '/:id/teachers' }, function() {
+      this.route('index');
+    });
   });
 });
 
